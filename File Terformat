@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+int main()
+{
+    // deklarasi variabel
+    int ID;
+    char Nama[50];
+    double Uang;
+
+    FILE *file = fopen("text.txt", "r"); // Membuka file "text.txt" (Buatlah file dengan nama "text.t")
+
+    if (file == NULL)
+    {
+        printf("Tidak Dapat Membuka File.\n"); // Output jika tidak menemukan file
+        return 1;
+    }
+
+    char line[100]; // Buffer untuk membaca setiap baris
+    while (fgets(line, sizeof(line), file) != NULL)
+    {
+        // Membaca data dari baris di file  "text.txt"
+        if (sscanf(line, "%d %49[^\n] %lf", &ID, Nama, &Uang) == 3)
+        {
+            // Menampilkan data di file "text.txt"
+            printf("%d %s %.2lf \n", ID, Nama, Uang);
+        }
+        else
+        {
+            printf("%s", line);
+        }
+    }
+
+    fclose(file); // Menutup file setelah selesai membaca
+    return 0;
+}
